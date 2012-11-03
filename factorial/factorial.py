@@ -9,7 +9,7 @@ def get_factorial(number):
     Args:
         number (int): number integer
     Returns:
-        factorial integer
+        factorial (int)
     """
     factorial = 1
     for n in range(int(number), 1, -1):
@@ -22,7 +22,7 @@ def math_factorial(number):
     Args:
         number (int): number integer
     Returns:
-        factorial integer
+        factorial (int)
     """
     return math.factorial(int(number))
 
