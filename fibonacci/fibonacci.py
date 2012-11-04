@@ -30,13 +30,13 @@ def fib_slow(number):
     if number in [0, 1]:
         return number
     else:
-        return fib_optimized(number-1) + fib_optimized(number-2)
+        return fib_slow(number-1) + fib_slow(number-2)
 
 
 def main():
     """ run the main logic """
-    print [fib_slow(i) for i in xrange(1000)]
-    print [fib_optimized(i) for i in xrange(1000)]
+    print [fib_slow(i) for i in xrange(30)]
+    print [fib_optimized(i) for i in xrange(30)]
 
 if __name__ == '__main__':
     main()
