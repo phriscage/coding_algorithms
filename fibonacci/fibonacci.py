@@ -4,12 +4,40 @@
     efficient so we'll use memory instead.
 """
 
-memo = {0:0, 1:1}
+_fibs = {0:0, 1:1}
 
-def fib_mem(n):
-    if not n in memo:
-        memo[n] = fib_mem(n-1) + fib_mem(n-2)
-    return memo[n]
+def fib_optimized(number):
+    """ calculate the fibonacci number utilizing memory 
+    Args:
+        number (int): number
+    Returns:
+        _fib[number] (int): fibonacci number
+    """
+    number = int(number)
+    if not number in _fibs:
+        _fibs[number] = fib_optimized(number-1) + fib_optimized(number-2)
+    return _fibs[number]
+
+
+def fib_slow(number):
+    """ calculate the fibonacci number recursively 
+    Args:
+        number (int): number
+    Returns:
+        fib (int): fibonacci number
+    """
+    number = int(number)
+    if number in [0, 1]:
+        return number
+    else:
+        return fib_optimized(number-1) + fib_optimized(number-2)
+
+
+def main():
+    """ run the main logic """
+    print [fib_slow(i) for i in xrange(1000)]
+    print [fib_optimized(i) for i in xrange(1000)]
 
 if __name__ == '__main__':
-    print [fib_mem(i) for i in range(100)]
+    main()
+
