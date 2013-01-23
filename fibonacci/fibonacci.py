@@ -2,6 +2,7 @@
 """
     a fibonacci number can be easily calculated recursively, but this is not 
     efficient so we'll use memory instead.
+    1, 1, 3, 5 
 """
 
 _fibs = {0:0, 1:1}

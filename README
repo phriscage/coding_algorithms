@@ -8,13 +8,13 @@
         - factorial
         - fibonacci
         - grid, matrix
-        - max sub sequence
+        - max subsequence
         - numeric conversion
         - palindrome
         - pattern matching
-        - permutations
         - prime numbers
         - quadratic formula
         - spelling correction
         - string search
+        - transpose
 

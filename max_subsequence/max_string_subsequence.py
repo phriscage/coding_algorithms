@@ -6,7 +6,7 @@
     character that corresponds to the longest consecutvice subsequence
     I.E. ('aabaccccdaa') => ('c')
 """
-import cProfile
+#import cProfile
 
 def get_max_subsequence_not_optimal(unorderd_string):
     """ *** this logic is not optimized and uses too much memory ***
@@ -50,7 +50,12 @@ def get_max_subsequence(unorderd_string):
     return max_value[0]
 
 
-if __name__ == '__main__':
+def main():
+    """ run the main logic """
     print get_max_subsequence_not_optimal("aabaccccdaa" * 100000)
     print get_max_subsequence("aabaccccdaa" * 100000)
+
+
+if __name__ == '__main__':
+    main()
 
