@@ -1,10 +1,11 @@
 """
-    Name: permutations.py
+    Name: transpose.py
     Developer: Chris Page
     Date: 2013-03-04
     Purpose: transpose a specific string based off a given offset value
 """
-from string import letters
+from string import lowercase
+import re
 
 class TransposeString(object):
     """ TransposeString will rty to return a transposed string based off a
@@ -19,20 +20,23 @@ class TransposeString(object):
     def _transpose_string(self):
         """ transpose string creates a transposed alphabet based
         self.offset and then returns a new string using the index of the 
-        transposed alphabet.
+        transposed alphabet. use regex to identify uppercase letters
         Args:
             None
         Returns:
             transposed string
         """
-        transposed_alphabet = letters[self.offset:] + letters[:self.offset]
+        transposed_alphabet = lowercase[self.offset:] + lowercase[:self.offset]
         new_string = str()
         for character in self.original:
-            if character in letters:
-                new_string += transposed_alphabet[letters.index(character)]
+            if re.search(character, lowercase):
+                new_string += transposed_alphabet[lowercase.index(character)]
+            elif re.search(character, lowercase, re.I):
+                new_string += transposed_alphabet[lowercase.index(
+                    character.lower())].upper()
             else:
                 new_string += character
-                #raise ValueError, "%s is not in %s" % (character, letters)
+                #raise ValueError, "%s is not in %s" % (character, lowercase)
         return new_string
             
     def run(self, original):
@@ -54,5 +58,5 @@ def main(original):
 
 if __name__ == '__main__':
     main("hello")
-    main("hello!, I hope you know what this means!")
+    main("hello!, I hope you know what this means, Adam!")
 
