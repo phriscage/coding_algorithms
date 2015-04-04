@@ -20,6 +20,11 @@ class TestStringParse(unittest.TestCase):
         values = ('a', 'ab')
         self.assertEqual(parse_string(*values), False)
 
+    def test_invalid_filename(self):
+        """ test_valid_filename """
+        values = ('abc', 'd')
+        self.assertEqual(parse_string(*values), False)
+
     def test_filename_and_pattern_length_zero(self):
         """ test_filename_and_pattern_length_zero """
         values = ('', '')
@@ -45,10 +50,25 @@ class TestStringParse(unittest.TestCase):
         values = ('abc', 'c')
         self.assertEqual(parse_string(*values), True)
 
-    def test_invalid_filename(self):
-        """ test_valid_filename """
-        values = ('abc', 'd')
-        self.assertEqual(parse_string(*values), False)
+    def test_filename_with_one_extra_char_middle(self):
+        """ test_filename_with_one_extra_char """
+        values = ('azb', 'ab')
+        self.assertEqual(parse_string(*values), True)
+
+    def test_filename_with_one_extra_char_first(self):
+        """ test_filename_with_one_extra_char """
+        values = ('zazb', 'ab')
+        self.assertEqual(parse_string(*values), True)
+
+    def test_filename_with_two_extra_char_middle(self):
+        """ test_filename_with_tow_extra_char """
+        values = ('axyb', 'ab')
+        self.assertEqual(parse_string(*values), True)
+
+    def test_filename_with_two_extra_char_first(self):
+        """ test_filename_with_tow_extra_char """
+        values = ('xyaxyb', 'ab')
+        self.assertEqual(parse_string(*values), True)
 
 if __name__ == '__main__':
     unittest.main()
