@@ -2,6 +2,7 @@
 """
     Name: base_conversion.py
     Developer: Chris Page
+    Last Updated Date: 2019-04-12
     Date: 2015-04-01
     Purpose: convert a base 10 <-> base 2 vs versa
 """
