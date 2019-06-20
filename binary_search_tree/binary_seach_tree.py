@@ -3,6 +3,7 @@
     rather than re-invent the wheel, Laurent Luce has a concrete example
     of a binary search tree node object in python
     http://www.laurentluce.com/posts/binary-search-tree-library-in-python/
+    This has been extended for additional use-cases
 """
 
 class Node:
@@ -12,17 +13,17 @@ class Node:
     def __init__(self, data):
         """
         Node constructor
-    
+
         @param data node data object
         """
         self.left = None
         self.right = None
-        self.data = data
-    
+        self.data = int(data)
+
     def insert(self, data):
         """
         Insert new node with data
-    
+
         @param data node data object to insert
         """
         if data < self.data:
@@ -30,16 +31,18 @@ class Node:
                 self.left = Node(data)
             else:
                 self.left.insert(data)
-        else:
+        elif data > self.data:
             if self.right is None:
                 self.right = Node(data)
             else:
                 self.right.insert(data)
+        else:
+            print "'%d' already exists in tree" % data
 
     def lookup(self, data, parent=None):
         """
         Lookup node containing data
-    
+
         @param data node data object to look up
         @param parent node's parent
         @returns node and node's parent if found or None, None
@@ -55,10 +58,26 @@ class Node:
         else:
             return self, parent
 
+    def get_range(self, left, right):
+        """
+        Find the range of inclusive values between left and right
+
+        @param left data
+        @param right data
+        """
+        count = 0
+        start = left
+        end = right
+        if right > left:
+          start = right
+          end = left
+        print "start %d, end %d" % (start, end)
+        return count
+
     def delete(self, data):
         """
         Delete node containing data
-    
+
         @param data node's content to delete
         """
         # get node containing data
@@ -101,7 +120,7 @@ class Node:
     def compare_trees(self, node):
         """
         Compare 2 trees
-    
+
         @param node tree to compare
         @returns True if the tree passed is identical to this tree
         """
@@ -121,16 +140,19 @@ class Node:
         else:
             res = self.right.compare_trees(node.right)
         return res
-        
-    def print_tree(self):
+
+    def inorder_traversal(self, node):
         """
-        Print tree content inorder
+        Print tree content inorder. left -> root -> right
+
+        @param node tree to compare
         """
-        if self.left:
-            self.left.print_tree()
-        print self.data,
-        if self.right:
-            self.right.print_tree()
+        values = []
+        if node:
+            values = self.inorder_traversal(node.left)
+            values.append(node.data)
+            values += self.inorder_traversal(node.right)
+        return values
 
     def tree_data(self):
         """
@@ -139,7 +161,7 @@ class Node:
         # we use a stack to traverse the tree in a non-recursive way
         stack = []
         node = self
-        while stack or node: 
+        while stack or node:
             if node:
                 stack.append(node)
                 node = node.left
@@ -151,7 +173,7 @@ class Node:
     def children_count(self):
         """
         Return the number of children
-    
+
         @returns number of children: 0, 1, 2
         """
         cnt = 0
@@ -161,19 +183,34 @@ class Node:
             cnt += 1
         return cnt
 
-    
+def get_range(values, left=None, right=None):
+  """ get the range of values between left, right """
+  tree = None
+  for val in values:
+    try:
+      if not tree:
+        tree = Node(val)
+      else:
+        tree.insert(val)
+    except TypeError as error:
+      print error
+  #node, parent = tree.lookup(6)
+  #print "node: %d, parent: %d" % (node.data, parent.data)
+  print tree.inorder_traversal(tree)
+  if left and right:
+    count = 0
+    for val in tree.inorder_traversal(tree):
+        if val >= left and val <= right:
+          count += val
+        if val > right:
+          break
+    print "left: %d, right %d" % (left, right)
+    print "count: %d" % count
+
+
 if __name__ == '__main__':
     print '-'*80
-    t = Node(8)
-    t.insert(5)
-    t.insert(6)
-    node, parent = t.lookup(6)
-    print node.data
-    print parent.data
-    print t.print_tree()
-    print [data for data in t.tree_data()]
-    print '-'*80
-    t = Node('A')
-    t.insert('B')
-    t.insert('C')
-    print t.print_tree()
+    tree = None
+    values = [10,5,15,3,7,13,18,1,None,6]
+    get_range(values)
+    get_range(values, 5, 14)
